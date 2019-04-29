@@ -26,9 +26,9 @@
 /* Begin PBXFileReference section */
 		C5665BA9227285F60069C350 /* NfaToDfa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NfaToDfa; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5665BAC227285F60069C350 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		C5665BB32272B4B40069C350 /* NFA_example.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NFA_example.txt; sourceTree = "<group>"; };
 		C5665BB4227328580069C350 /* NFA_DFA.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NFA_DFA.cpp; sourceTree = "<group>"; };
 		C5665BB5227328580069C350 /* NFA_DFA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NFA_DFA.h; sourceTree = "<group>"; };
+		C56B32462277809C00CAD8D1 /* NFA_example.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = NFA_example.txt; path = "../../../../Library/Developer/Xcode/DerivedData/NfaToDfa-gcommsbeylxmssdbhwhvtelsihsv/Build/Products/Debug/NFA_example.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +62,9 @@
 			isa = PBXGroup;
 			children = (
 				C5665BAC227285F60069C350 /* main.cpp */,
-				C5665BB32272B4B40069C350 /* NFA_example.txt */,
 				C5665BB4227328580069C350 /* NFA_DFA.cpp */,
 				C5665BB5227328580069C350 /* NFA_DFA.h */,
+				C56B32462277809C00CAD8D1 /* NFA_example.txt */,
 			);
 			path = NfaToDfa;
 			sourceTree = "<group>";

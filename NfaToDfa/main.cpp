@@ -8,8 +8,6 @@
 
 #include "NFA_DFA.h"
 
-#include <map>
-
 int main() {
     
     //map<pair<int, char>,vector<int>> mymap;
@@ -21,20 +19,19 @@ int main() {
     //mymap[make_pair(0, 'a')].push_back(2);
     //mymap[make_pair(0, 'a')].push_back(2);
     
-    /*vector<int> v,v2;
     
-    v.push_back(1);
-    v.push_back(2);
-    v2.push_back(1);
-    v2.push_back(2);
+    /*queue<int> q;
+    int a;
     
-    if(v==v2){
-        cout<<"true\n";
-    }else{
-        cout<<"false\n";
-    }*/
+    q.push(10);
+    q.push(20);
     
+    a=q.front();
+    
+    cout<<a<<endl;*/
     NFA_DFA n("NFA_example.txt");
+    
+    n.nfa_to_dfa();
     
     return 0;
 }

@@ -32,10 +32,119 @@ NFA_DFA::NFA_DFA(string filePath){
             NFA_table[make_pair(startNode, symbol)].push_back(finalNode);
             
         }
+        
+        alphabet.insert(pair<int, char>(1,'a'));
+        alphabet.insert(pair<int, char>(2,'b'));
+        alphabet.insert(pair<int, char>(3,'c'));
+        alphabet.insert(pair<int, char>(4,'d'));
+        alphabet.insert(pair<int, char>(5,'e'));
 
         nfa.close();
     }else{
         cout<<"Couldn´t open file\n";
         return;
     }
+}
+
+void NFA_DFA::epsilon_closure(vector<int>& State){
+    
+    for(int i=0; i<State.size(); i++){
+        e_closure.push(State[i]);
+    }
+    
+    while (!e_closure.empty()) {
+        
+        if(!NFA_table[make_pair(e_closure.front(), 'f')].empty()){
+            
+            for (int i=0; i<NFA_table[make_pair(e_closure.front(), 'f')].size() ; i++) {
+                if(find(State.begin(),State.end(),
+                        NFA_table[make_pair(e_closure.front(), 'f')][i]) == State.end()){
+                    
+                    State.push_back(NFA_table[make_pair(e_closure.front(), 'f')][i]);
+                    e_closure.push(NFA_table[make_pair(e_closure.front(), 'f')][i]);
+                    
+                }
+            }
+        }
+        e_closure.pop();
+    }
+}
+
+void NFA_DFA::nfa_to_dfa(){
+    
+    int idState;
+    
+    currentState.push_back(initialState);
+    
+    epsilon_closure(currentState);
+    
+    DFA_states.push_back(currentState);
+    
+    currentState.clear();
+    
+    states.push(DFA_states.size()-1);
+    
+    while (!states.empty()) {
+        
+        dfaState = DFA_states[states.front()];
+        for(int i=1; i<=alphabetSize-1; i++){
+            for(int j=0; j<dfaState.size(); j++){
+                if(!NFA_table[make_pair(dfaState[j], alphabet[i])].empty()){
+                    for(int x=0; x<NFA_table[make_pair(dfaState[j], alphabet[i])].size(); x++){
+                        
+                        if(find(currentState.begin(),currentState.end(),
+                                NFA_table[make_pair(dfaState[j],alphabet[i])][x]) == currentState.end()){
+                            
+                            currentState.push_back(NFA_table[make_pair(dfaState[j],alphabet[i])][x]);
+                            
+                        }
+                    }
+                
+                }
+               
+            }
+            
+            if(!currentState.empty()){
+                
+                epsilon_closure(currentState);
+                
+                sort(currentState.begin(), currentState.end());
+                
+                dfaAlphabet.insert(alphabet[i]);
+                
+                if(find(DFA_states.begin(), DFA_states.end(), currentState) != DFA_states.end()){
+                    
+                    vector<vector<int>>::iterator it=find(DFA_states.begin(), DFA_states.end(), currentState);
+                    
+                    idState = distance(DFA_states.begin(), it);
+                    DFA_table[make_pair(states.front(), alphabet[i])] = idState ;
+                    
+                }else{
+                    DFA_states.push_back(currentState);
+                    idState=DFA_states.size()-1;
+                    states.push(idState);
+                    
+                    DFA_table[make_pair(states.front(), alphabet[i])] = idState ;
+                    
+                }
+                
+                currentState.clear();
+            }
+            
+        }
+        
+        states.pop();
+    
+    }
+    
+    cout<<DFA_states.size()<<endl;
+    cout<<dfaAlphabet.size()<<endl;
+    cout<<DFA_table.size()<<endl;
+    
+    for(map<pair<int,char>, int>::const_iterator it = DFA_table.begin();it != DFA_table.end(); ++it)
+    {
+        cout << it->first.first << " " << it->second << " " << it->first.second << "\n";
+    }
+    
+    
 }
