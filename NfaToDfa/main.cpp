@@ -9,29 +9,19 @@
 #include "NFA_DFA.h"
 
 int main() {
+    string nfaFilePath,dfaFilePath;
     
-    //map<pair<int, char>,vector<int>> mymap;
+    cout<<"NFA-e file path: "<<"\n";
+    cin>>nfaFilePath;
     
-    //mymap.insert(make_pair(make_pair(0,'a'), 1));
-    //mymap.insert(make_pair(make_pair(0,'b'), 2));
+    cout<<"DFA file path: "<<"\n";
+    cin>>dfaFilePath;
     
-    //mymap[make_pair(0, 'a')].push_back(1);
-    //mymap[make_pair(0, 'a')].push_back(2);
-    //mymap[make_pair(0, 'a')].push_back(2);
-    
-    
-    /*queue<int> q;
-    int a;
-    
-    q.push(10);
-    q.push(20);
-    
-    a=q.front();
-    
-    cout<<a<<endl;*/
-    NFA_DFA n("NFA_example.txt");
+    NFA_DFA n(nfaFilePath);
     
     n.nfa_to_dfa();
+    
+    n.write_dfa(dfaFilePath);
     
     return 0;
 }

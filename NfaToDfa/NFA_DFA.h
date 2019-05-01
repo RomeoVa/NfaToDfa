@@ -43,6 +43,7 @@ class NFA_DFA {
     
         void epsilon_closure(vector<int>& State);
         void nfa_to_dfa();
+        void write_dfa(string dfaFilePath);
     
     
     

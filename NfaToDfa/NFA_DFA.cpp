@@ -80,6 +80,15 @@ void NFA_DFA::nfa_to_dfa(){
     
     DFA_states.push_back(currentState);
     
+    for(int i=0; i<finalStates.size(); i++){
+        if(find(currentState.begin(), currentState.end(), finalStates[i]) != currentState.end())
+        {
+            finalDfaStates.push_back(0);
+            break;
+            
+        }
+    }
+    
     currentState.clear();
     
     states.push(DFA_states.size()-1);
@@ -126,6 +135,14 @@ void NFA_DFA::nfa_to_dfa(){
                     
                     DFA_table[make_pair(states.front(), alphabet[i])] = idState ;
                     
+                    for(int i=0; i<finalStates.size(); i++){
+                        if(find(currentState.begin(), currentState.end(), finalStates[i]) != currentState.end())
+                        {
+                            finalDfaStates.push_back(idState);
+                            break;
+                            
+                        }
+                    }
                 }
                 
                 currentState.clear();
@@ -137,14 +154,38 @@ void NFA_DFA::nfa_to_dfa(){
     
     }
     
-    cout<<DFA_states.size()<<endl;
+    /*cout<<DFA_states.size()<<endl;
     cout<<dfaAlphabet.size()<<endl;
-    cout<<DFA_table.size()<<endl;
+    cout<<finalDfaStates.size()<<endl;
     
+    for(int i=0; i<finalDfaStates.size(); i++){
+        cout<<finalDfaStates[i]<<endl;
+    }
+    
+    cout<<DFA_table.size()<<endl;
+
     for(map<pair<int,char>, int>::const_iterator it = DFA_table.begin();it != DFA_table.end(); ++it)
     {
         cout << it->first.first << " " << it->second << " " << it->first.second << "\n";
+    }*/
+    
+}
+
+void NFA_DFA::write_dfa(string file){
+    ofstream dfa(file);
+    
+    dfa<<DFA_states.size()<<"\n";
+    dfa<<dfaAlphabet.size()<<"\n";
+    dfa<<finalDfaStates.size()<<"\n";
+    
+    for(int i=0; i<finalDfaStates.size(); i++){
+        dfa<<finalDfaStates[i]<<"\n";
     }
     
+    dfa<<DFA_table.size()<<"\n";
     
+    for(map<pair<int,char>, int>::const_iterator it = DFA_table.begin();it != DFA_table.end(); ++it)
+    {
+        dfa << it->first.first << " " << it->second << " " << it->first.second << "\n";
+    }
 }
